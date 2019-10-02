@@ -74,7 +74,7 @@ a {
     color: gray;
 }
 
-.container {
+.main {
     flex: 1;
     width: 100%;
     display: flex;
@@ -82,10 +82,9 @@ a {
     align-items: center;
 }
 
-.content {
+.container {
     width: 80%;
     height: 80%;
-    max-height: 80%;
     border-radius: 8px;
     box-sizing: border-box;
     padding: 40px;
@@ -96,11 +95,15 @@ a {
     flex-direction: column;
 }
 
+.content {
+    flex: 1;
+    overflow-y: auto;
+}
+
 .document-grid {
-    /* flex: 1; */
+    flex: 1;
     display: flex;
     flex-flow: row wrap;
-    overflow-y: auto;
 
     max-height: 100%;
 }

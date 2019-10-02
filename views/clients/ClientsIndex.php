@@ -11,6 +11,12 @@
             $page = str_replace('{APP_NAME}', APP_NAME, $page);
             $page = str_replace('{PAGE_NAME}', 'Lista de clientes', $page);
 
+            $pageTitle = '
+                <h2>Lista de clientes</h2>
+                <hr />
+            ';
+            $page = str_replace('{PAGE_TITLE}', $pageTitle, $page);
+
             $scripts = "
                 <script>let documentGrid = new DocumentGrid('document-grid');</script>
             ";
@@ -29,10 +35,6 @@
             }
 
             $content = "
-                <div>
-                    <h2>Lista de clientes</h2>
-                    <hr />
-                </div>
                 <div class=\"document-grid\">
                     $clients
                 </div>
