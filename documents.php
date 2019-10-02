@@ -25,3 +25,10 @@
                 echo "ERRO";
         }
     }
+
+    switch ($action) {
+        case 'Create':
+            $logic->CreatePOST();
+            header('Location: clients.php?action=Index');
+            break;
+    }

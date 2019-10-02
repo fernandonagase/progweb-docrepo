@@ -28,4 +28,9 @@
             $create = new DocumentsCreate();
             $create->show();
         }
+
+        public function CreatePOST() {
+            $documentService = new DocumentService();
+            $documentService->newDocument($_POST['clientId'], $_POST['documentName'], $_POST['documentContent']);
+        }
     }

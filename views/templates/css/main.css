@@ -32,6 +32,10 @@ a {
     text-decoration: none;
 }
 
+textarea {
+    resize: none;
+}
+
 .app-page {
     height: 100%;
     display: flex;
@@ -148,6 +152,33 @@ a {
 }
 
 
+
+.document-form {
+    height: 100%;
+    display: grid;
+    grid-template: 1fr 9fr 1fr / 1fr 1fr;
+    gap: 8px;
+}
+
+.rounded-input {
+    border-radius: 6px;
+}
+
+.document-input {
+    border: 2px solid #f0f0f0;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+}
+
+.textarea-grid-item {
+    grid-column: 1 / 3;
+}
+
+.submit-button-grid-item {
+    grid-column: 1 / span 2;
+}
 
 .invisible {
     visibility: hidden;

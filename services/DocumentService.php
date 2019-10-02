@@ -15,6 +15,14 @@
             $this->path = new Path(APP_DOCUMENTS_ROOT);
         }
 
+        public function newDocument(string $client, string $document, string $content) {
+            $this->newClient($client);
+            $path = Path::join($this->path->fullPath(), $client, $document . '.txt');
+            $file = new File(new Path($path));
+            $file->create();
+            $file->edit($content);
+        }
+
         public function allDocuments(string $client) {
             $path = Path::join($this->path->fullPath(), $client);
             $directory = new Directory(new Path($path));
