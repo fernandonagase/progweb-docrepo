@@ -25,7 +25,6 @@
         }
 
         public function childItems() {
-            $items = scandir($this->path->fullPath());
-            return array_diff($items, array('.', '..'));
+            return scandir($this->path->fullPath());
         }
     }
