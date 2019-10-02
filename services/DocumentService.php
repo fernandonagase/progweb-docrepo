@@ -15,6 +15,23 @@
             $this->path = new Path(APP_DOCUMENTS_ROOT);
         }
 
+        public function allDocuments(string $client) {
+            $path = Path::join($this->path->fullPath(), $client);
+            $directory = new Directory(new Path($path));
+            $documents = array();
+            foreach ($directory->childItems() as $document) {
+                if ($document === '.' or $document === '..') continue;
+                array_push($documents, basename($document, '.txt'));
+            }
+            return $documents;
+        }
+
+        public function readDocument(string $client, string $document) {
+            $path = Path::join($this->path->fullPath(), $client, $document . '.txt');
+            $file = new File(new Path($path));
+            return $file->getContent();
+        }
+
         public function newClient(string $client) {
             $path = Path::join($this->path->fullPath(), $client);
             $directory = new Directory(new Path($path));

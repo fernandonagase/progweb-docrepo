@@ -5,14 +5,14 @@
     require_once (dirname(__FILE__) . '/../../config.php');
     require_once (dirname(__FILE__) . '/../../services/DocumentService.php');
 
-    class ClientsIndex {
-        public function show() {
+    class DocumentsIndex {
+        public function show(string $clientId) {
             $page = file_get_contents('views/templates/layout.html');
             $page = str_replace('{APP_NAME}', APP_NAME, $page);
-            $page = str_replace('{PAGE_NAME}', 'Lista de clientes', $page);
+            $page = str_replace('{PAGE_NAME}', 'Lista de documentos', $page);
 
             $pageTitle = '
-                <h2>Lista de clientes</h2>
+                <h2>Lista de documentos</h2>
                 <hr />
             ';
             $page = str_replace('{PAGE_TITLE}', $pageTitle, $page);
@@ -48,14 +48,14 @@
             $page = str_replace('{CUSTOM_SCRIPTS}', $scripts, $page);
 
             $documentService = new DocumentService();
-            $clientIds = $documentService->allClients();
+            $documentNames = $documentService->allDocuments($clientId);
 
-            $clients = '';
-            foreach ($clientIds as $client) {
-                $clients .= "
-                    <div class=\"document-grid-item\" onclick=\"documentGrid.selectGridItem(this); updateBar('remove-button', $client);\"
-                        ondblclick=\"location.href='documents.php?action=Index&clientId=$client'\">
-                        $client
+            $documents = '';
+            foreach ($documentNames as $document) {
+                $documents .= "
+                    <div class=\"document-grid-item\" onclick=\"documentGrid.selectGridItem(this); updateBar('remove-button', $document);\"
+                        ondblclick=\"location.href='documents.php?action=Details&clientId=$clientId&documentName=$document'\">
+                        $document
                     </div>
                 ";
             }
@@ -65,7 +65,7 @@
                     <button type=\"button\" class=\"btn btn-remove invisible\" id=\"remove-button\">Remover</button>
                 </div>
                 <div class=\"document-grid\">
-                    $clients
+                    $documents
                 </div>
             ";
             $page = str_replace('{PAGE_CONTENT}', $content, $page);
