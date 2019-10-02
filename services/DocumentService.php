@@ -46,6 +46,14 @@
             return $directory->remove();
         }
 
+        public function removeClientDocuments(string $client) {
+            $path = Path::join($this->path->fullPath(), $client);
+            $directory = new Directory(new Path($path));
+
+            if ($directory->isEmpty()) return FALSE;
+            $directory->emptyFiles();
+        }
+
         public function allClients() {
             $directory = new Directory(new Path($this->path->fullPath()));
             return array_diff($directory->childItems(), array('.', '..'));

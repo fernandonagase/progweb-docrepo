@@ -22,25 +22,28 @@
                     let documentGrid = new DocumentGrid("document-grid");
                     
                     function removeClient(client) {
-                        if (!confirm(`Tem certeza que deseja remover o usuário ${client}?`)) return;
-                        fetch(`clients.php?action=Remove&clientId=${client}`)
-                            .then(res => res.text())
-                            .then(result => {
-                                if (result === "FALSE") {
-                                    alert("O cliente escolhido ainda tem documentos. Remova-os antes de excluí-lo");
-                                    return;
-                                }
-                                location.reload();    
+
+                    }
+
+                    function removeAllClients(clientId) {
+                        if (!confirm("Tem certeza que deseja remover todos os documentos?")) return;
+                        fetch(`documents.php?action=RemoveAll&clientId=${clientId}`)
+                            .then(res => {
+                                location.reload();
                             });
                     }
 
-                    function updateBar(removeButton, client) {
+                    function updateBar(editButton, removeButton, removeAllButton, client) {
+                        let editNode = document.getElementById(editButton);
                         let removeNode = document.getElementById(removeButton);
+                        let newEdit = editNode.cloneNode(true);
                         let newRemove = removeNode.cloneNode(true);
                         newRemove.addEventListener("click", function() {
                             removeClient(client);
                         }, false);
+                        editNode.parentNode.replaceChild(newEdit, editNode);
                         removeNode.parentNode.replaceChild(newRemove, removeNode);
+                        newEdit.classList.remove("invisible");
                         newRemove.classList.remove("invisible");
                     }
                 </script>
@@ -53,7 +56,8 @@
             $documents = '';
             foreach ($documentNames as $document) {
                 $documents .= "
-                    <div class=\"document-grid-item\" onclick=\"documentGrid.selectGridItem(this); updateBar('remove-button', $document);\"
+                    <div class=\"document-grid-item\"
+                        onclick=\"documentGrid.selectGridItem(this); updateBar('edit-button', 'remove-button', 'removeall-button', '$document');\"
                         ondblclick=\"location.href='documents.php?action=Details&clientId=$clientId&documentName=$document'\">
                         $document
                     </div>
@@ -62,7 +66,9 @@
 
             $content = "
                 <div class=\"option-bar\">
+                    <button type=\"button\" class=\"btn btn-remove\" id=\"removeall-button\" onclick=\"removeAllClients($clientId)\">Remover todos</button>
                     <button type=\"button\" class=\"btn btn-remove invisible\" id=\"remove-button\">Remover</button>
+                    <button type=\"button\" class=\"btn btn-edit invisible\" id=\"edit-button\">Editar</button>
                 </div>
                 <div class=\"document-grid\">
                     $documents

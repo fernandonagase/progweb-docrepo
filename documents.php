@@ -18,6 +18,9 @@
             case 'Details':
                 $logic->Details();
                 break;
+            case 'RemoveAll':
+                $logic->RemoveAll();
+                break;
             default:
                 echo "ERRO";
         }

@@ -117,6 +117,11 @@ a {
     color: white;
 }
 
+.btn-edit {
+    background-color: #29339B;
+    color: white;
+}
+
 .document-grid {
     flex: 1;
     display: flex;

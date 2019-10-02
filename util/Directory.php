@@ -24,6 +24,13 @@
             return count(scandir($this->path->fullPath())) === 2;
         }
 
+        public function emptyFiles() {
+            foreach ($this->childItems() as $file) {
+                if ($file === '.' or $file === '..') continue;
+                unlink(Path::join($this->path->fullPath(), $file));
+            }
+        }
+
         public function childItems() {
             return scandir($this->path->fullPath());
         }
