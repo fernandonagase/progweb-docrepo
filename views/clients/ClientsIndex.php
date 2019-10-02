@@ -33,6 +33,16 @@
                                 location.reload();    
                             });
                     }
+
+                    function updateBar(removeButton, client) {
+                        let removeNode = document.getElementById(removeButton);
+                        let newRemove = removeNode.cloneNode(true);
+                        newRemove.addEventListener("click", function() {
+                            removeClient(client);
+                        }, false);
+                        removeNode.parentNode.replaceChild(newRemove, removeNode);
+                        newRemove.classList.remove("invisible");
+                    }
                 </script>
             ';
             $page = str_replace('{CUSTOM_SCRIPTS}', $scripts, $page);
@@ -43,14 +53,16 @@
             $clients = '';
             foreach ($clientIds as $client) {
                 $clients .= "
-                    <div class=\"document-grid-item\" onclick=\"documentGrid.selectGridItem(this)\">
+                    <div class=\"document-grid-item\" onclick=\"documentGrid.selectGridItem(this); updateBar('remove-button', $client);\">
                         $client
                     </div>
                 ";
             }
 
             $content = "
-                <button type=\"button\" id=\"remove-button\" onclick=\"removeClient(5555)\">Remover</button>
+                <div class=\"option-bar\">
+                    <button type=\"button\" class=\"btn btn-remove invisible\" id=\"remove-button\">Remover</button>
+                </div>
                 <div class=\"document-grid\">
                     $clients
                 </div>
