@@ -12,6 +12,9 @@
             case 'Index':
                 $logic->Index();
                 break;
+            case 'Remove':
+                $logic->Remove();
+                break;
             default:
                 echo "ERRO";
         }

@@ -21,6 +21,12 @@
             $directory->create();
         }
 
+        public function removeClient(string $client) {
+            $path = Path::join($this->path->fullPath(), $client);
+            $directory = new Directory(new Path($path));
+            $directory->remove();
+        }
+
         public function allClients() {
             $directory = new Directory(new Path($this->path->fullPath()));
             return array_diff($directory->childItems(), array('.', '..'));
