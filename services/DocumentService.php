@@ -24,7 +24,9 @@
         public function removeClient(string $client) {
             $path = Path::join($this->path->fullPath(), $client);
             $directory = new Directory(new Path($path));
-            $directory->remove();
+
+            if (!$directory->isEmpty()) return FALSE;
+            return $directory->remove();
         }
 
         public function allClients() {

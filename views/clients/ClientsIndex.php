@@ -17,9 +17,24 @@
             ';
             $page = str_replace('{PAGE_TITLE}', $pageTitle, $page);
 
-            $scripts = "
-                <script>let documentGrid = new DocumentGrid('document-grid');</script>
-            ";
+            $scripts = '
+                <script>
+                    let documentGrid = new DocumentGrid("document-grid");
+                    
+                    function removeClient(client) {
+                        if (!confirm(`Tem certeza que deseja remover o usuário ${client}?`)) return;
+                        fetch(`clients.php?action=Remove&clientId=${client}`)
+                            .then(res => res.text())
+                            .then(result => {
+                                if (result === "FALSE") {
+                                    alert("O cliente escolhido ainda tem documentos. Remova-os antes de excluí-lo");
+                                    return;
+                                }
+                                location.reload();    
+                            });
+                    }
+                </script>
+            ';
             $page = str_replace('{CUSTOM_SCRIPTS}', $scripts, $page);
 
             $documentService = new DocumentService();
@@ -35,6 +50,7 @@
             }
 
             $content = "
+                <button type=\"button\" id=\"remove-button\" onclick=\"removeClient(5555)\">Remover</button>
                 <div class=\"document-grid\">
                     $clients
                 </div>

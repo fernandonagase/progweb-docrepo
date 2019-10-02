@@ -14,6 +14,6 @@
         public function Remove() {
             $clientId = $_GET['clientId'];
             $documentService = new DocumentService(); 
-            $documentService->removeClient($clientId);
+            echo $documentService->removeClient($clientId) ? 'TRUE' : 'FALSE';
         }
     }
