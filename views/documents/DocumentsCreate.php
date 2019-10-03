@@ -6,6 +6,7 @@
 
     class DocumentsCreate {
         public function show() {
+            // Configuracao inicial
             $page = file_get_contents('views/templates/layout.html');
             $page = str_replace('{APP_NAME}', APP_NAME, $page);
             $page = str_replace('{PAGE_NAME}', 'Novo documento', $page);
@@ -19,6 +20,7 @@
             $scripts = '';
             $page = str_replace('{CUSTOM_SCRIPTS}', $scripts, $page);
 
+            // Montagem do conteúdo
             $content = '
                 <form action="documents.php?action=Create" method="post" class="document-form">
                     <input type="text" name="clientId" class="document-input rounded-input" placeholder="Código do cliente [1-999999]" id="client-id" required pattern="^[1-9]\d{0,5}$" />

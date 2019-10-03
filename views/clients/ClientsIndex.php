@@ -7,6 +7,7 @@
 
     class ClientsIndex {
         public function show() {
+            // Configuracao inicial
             $page = file_get_contents('views/templates/layout.html');
             $page = str_replace('{APP_NAME}', APP_NAME, $page);
             $page = str_replace('{PAGE_NAME}', 'Lista de clientes', $page);
@@ -17,6 +18,7 @@
             ';
             $page = str_replace('{PAGE_TITLE}', $pageTitle, $page);
 
+            // Javascript customizado
             $scripts = '
                 <script>
                     let documentGrid = new DocumentGrid("document-grid");
@@ -47,6 +49,7 @@
             ';
             $page = str_replace('{CUSTOM_SCRIPTS}', $scripts, $page);
 
+            // Montagem do conteúdo
             $documentService = new DocumentService();
             $clientIds = $documentService->allClients();
 
@@ -68,6 +71,7 @@
                 ";
             }
 
+            // Preparacao da barra de opcoes
             $content = "
                 <div class=\"option-bar\">
                     <button type=\"button\" class=\"btn btn-remove invisible\" id=\"remove-button\">Remover</button>

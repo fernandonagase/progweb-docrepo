@@ -7,6 +7,7 @@
 
     class DocumentsIndex {
         public function show(string $clientId) {
+            // Configuracao inicial
             $page = file_get_contents('views/templates/layout.html');
             $page = str_replace('{APP_NAME}', APP_NAME, $page);
             $page = str_replace('{PAGE_NAME}', 'Lista de documentos', $page);
@@ -17,6 +18,7 @@
             ';
             $page = str_replace('{PAGE_TITLE}', $pageTitle, $page);
 
+            // Javascript customizado
             $scripts = '
                 <script>
                     let documentGrid = new DocumentGrid("document-grid");
@@ -55,6 +57,7 @@
             ';
             $page = str_replace('{CUSTOM_SCRIPTS}', $scripts, $page);
 
+            // Montagem do conteúdo
             $documentService = new DocumentService();
             $documentNames = $documentService->allDocuments($clientId);
 

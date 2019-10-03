@@ -6,6 +6,10 @@
     require_once (dirname(__FILE__) . '/../services/DocumentService.php');
 
     class ClientsLogic {
+        /*
+            Página inicial - listagem de clientes
+            Grid de clientes
+        */
         public function Index() {
             $index = new ClientsIndex();
             $index->show();

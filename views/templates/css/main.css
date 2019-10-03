@@ -151,7 +151,9 @@ textarea {
     background-color: #E5E5E5;
 }
 
-
+.details-title {
+    margin-top: 12px;
+}
 
 .document-form {
     height: 100%;

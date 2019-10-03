@@ -4,6 +4,12 @@
 
     require_once(dirname(__FILE__) . './Path.php');
 
+    /*
+        Classe de abstracao para Arquivos e Diretorios
+        Fornece uma interface para a manipulacao dos
+        itens citados
+    */
+
     abstract class Item {
         protected $path;
 

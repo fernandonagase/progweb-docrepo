@@ -5,6 +5,14 @@
     require_once(dirname(__FILE__) . './Item.php');
     require_once(dirname(__FILE__) . './Path.php');
 
+    /*
+        Representa um arquivo.
+        Mantém uma representacao do caminho, que pode
+        mudar conforme as operacoes.
+        
+        Cada metodo tem um nome autoexplicativo.
+    */
+
     class File extends Item {
         public function __construct(Path $path) {
             $this->path = $path;

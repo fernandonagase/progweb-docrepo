@@ -9,11 +9,19 @@
     require_once (dirname(__FILE__) . '/../services/DocumentService.php');
 
     class DocumentsLogic {
+        /*
+            Página inicial - listagem de documentos
+            Grid de documentos
+        */
         public function Index() {
             $index = new DocumentsIndex();
             $index->show($_GET['clientId']);
         }
 
+        /*
+            Página de detalhes
+            Exibe o nome do documento e seu conteúdo
+        */
         public function Details() {
             $details = new DocumentsDetails();
             $details->show($_GET['clientId'], $_GET['documentName']);
