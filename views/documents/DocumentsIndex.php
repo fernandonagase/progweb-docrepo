@@ -69,6 +69,14 @@
                 ";
             }
 
+            if (empty($documentNames)) {
+                $documents = '
+                    <div style="margin-top: 10px">
+                        O cliente não tem documentos
+                    </div>
+                ';
+            }
+
             $content = "
                 <div class=\"option-bar\">
                     <button type=\"button\" class=\"btn btn-remove\" id=\"removeall-button\" onclick=\"removeAllClients($clientId)\">Remover todos</button>

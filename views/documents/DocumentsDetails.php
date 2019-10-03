@@ -24,6 +24,7 @@
             $documentContent = $documentService->readDocument($client, $document);
 
             $content = "
+                <a href=\"documents/$client/$document.txt\" download>Fazer download</a>
                 <h3>Título: $document</h3>
                 <br />
                 <p>Conteúdo: $documentContent</p>

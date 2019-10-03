@@ -60,6 +60,14 @@
                 ";
             }
 
+            if (empty($clientIds)) {
+                $clients = "
+                    <div>
+                        Não há nenhum cliente cadastrado
+                    </div>
+                ";
+            }
+
             $content = "
                 <div class=\"option-bar\">
                     <button type=\"button\" class=\"btn btn-remove invisible\" id=\"remove-button\">Remover</button>
