@@ -18,12 +18,20 @@
             case 'Details':
                 $logic->Details();
                 break;
+            case 'Edit':
+                $logic->Edit();
+                break;
+            case 'Remove':
+                $logic->Remove();
+                break;
             case 'RemoveAll':
                 $logic->RemoveAll();
                 break;
             default:
                 echo "ERRO";
+                header('Location: clients.php?action=Index');
         }
+        exit;
     }
 
     switch ($action) {
@@ -31,4 +39,7 @@
             $logic->CreatePOST();
             header('Location: clients.php?action=Index');
             break;
+        case 'Edit':
+            $logic->EditPOST();
+            header('Location: clients.php?action=Index');
     }

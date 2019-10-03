@@ -4,6 +4,7 @@
 
     require_once (dirname(__FILE__) . '/../views/documents/DocumentsIndex.php');
     require_once (dirname(__FILE__) . '/../views/documents/DocumentsCreate.php');
+    require_once (dirname(__FILE__) . '/../views/documents/DocumentsEdit.php');
     require_once (dirname(__FILE__) . '/../views/documents/DocumentsDetails.php');
     require_once (dirname(__FILE__) . '/../services/DocumentService.php');
 
@@ -16,6 +17,21 @@
         public function Details() {
             $details = new DocumentsDetails();
             $details->show($_GET['clientId'], $_GET['documentName']);
+        }
+
+        public function Edit() {
+            $edit = new DocumentsEdit();
+            $edit->show($_GET['clientId'], $_GET['documentName']);
+        }
+
+        public function EditPOST() {
+            $documentService = new DocumentService();
+            $documentService->editDocument($_POST['clientId'], $_POST['oldDocumentName'], $_POST['documentName'], $_POST['documentContent']);
+        }
+
+        public function Remove() {
+            $documentService = new DocumentService();
+            $documentService->removeDocument($_GET['clientId'], $_GET['documentName']);
         }
 
         public function RemoveAll() {

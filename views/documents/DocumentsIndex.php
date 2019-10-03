@@ -21,8 +21,12 @@
                 <script>
                     let documentGrid = new DocumentGrid("document-grid");
                     
-                    function removeClient(client) {
-
+                    function removeClient(client, document) {
+                        if (!confirm(`Tem certeza que deseja remover o documento ${document}?`)) return;
+                        fetch(`documents.php?action=Remove&clientId=${client}&documentName=${document}`)
+                            .then(res => {
+                                location.reload();
+                            });
                     }
 
                     function removeAllClients(clientId) {
@@ -33,14 +37,15 @@
                             });
                     }
 
-                    function updateBar(editButton, removeButton, removeAllButton, client) {
-                        let editNode = document.getElementById(editButton);
+                    function updateBar(editButton, removeButton, removeAllButton, client, documentName) {
+                        let editNode = document.getElementById("edit-button");
                         let removeNode = document.getElementById(removeButton);
                         let newEdit = editNode.cloneNode(true);
                         let newRemove = removeNode.cloneNode(true);
                         newRemove.addEventListener("click", function() {
-                            removeClient(client);
+                            removeClient(client, documentName);
                         }, false);
+                        newEdit.setAttribute("href", `documents.php?action=Edit&clientId=${client}&documentName=${documentName}`);
                         editNode.parentNode.replaceChild(newEdit, editNode);
                         removeNode.parentNode.replaceChild(newRemove, removeNode);
                         newEdit.classList.remove("invisible");
@@ -57,7 +62,7 @@
             foreach ($documentNames as $document) {
                 $documents .= "
                     <div class=\"document-grid-item\"
-                        onclick=\"documentGrid.selectGridItem(this); updateBar('edit-button', 'remove-button', 'removeall-button', '$document');\"
+                        onclick=\"documentGrid.selectGridItem(this); updateBar('edit-button', 'remove-button', 'removeall-button', '$clientId', '$document');\"
                         ondblclick=\"location.href='documents.php?action=Details&clientId=$clientId&documentName=$document'\">
                         $document
                     </div>
@@ -68,7 +73,7 @@
                 <div class=\"option-bar\">
                     <button type=\"button\" class=\"btn btn-remove\" id=\"removeall-button\" onclick=\"removeAllClients($clientId)\">Remover todos</button>
                     <button type=\"button\" class=\"btn btn-remove invisible\" id=\"remove-button\">Remover</button>
-                    <button type=\"button\" class=\"btn btn-edit invisible\" id=\"edit-button\">Editar</button>
+                    <a href='#' class=\"btn btn-edit invisible\" id=\"edit-button\">Editar</a>
                 </div>
                 <div class=\"document-grid\">
                     $documents

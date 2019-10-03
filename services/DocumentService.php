@@ -40,6 +40,19 @@
             return $file->getContent();
         }
 
+        public function editDocument(string $client, string $oldDocument, string $document, string $content) {
+            $path = Path::join($this->path->fullPath(), $client, $oldDocument . '.txt');
+            $file = new File(new Path($path));
+            $file->rename($document . '.txt');
+            $file->edit($content);
+        }
+
+        public function removeDocument(string $client, string $document) {
+            $path = Path::join($this->path->fullPath(), $client, $document . '.txt');
+            $file = new File(new Path($path));
+            $file->remove();
+        }
+
         public function newClient(string $client) {
             $path = Path::join($this->path->fullPath(), $client);
             $directory = new Directory(new Path($path));
